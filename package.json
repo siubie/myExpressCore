@@ -1,0 +1,19 @@
+{
+  "name": "myexpresscore",
+  "version": "1.0.0",
+  "description": "my awesome express rest api experiment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siubie/myExpressCore.git"
+  },
+  "author": "putraprima@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siubie/myExpressCore/issues"
+  },
+  "homepage": "https://github.com/siubie/myExpressCore#readme"
+}
