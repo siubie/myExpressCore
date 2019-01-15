@@ -1,0 +1,8 @@
+{
+  "app": {
+    "port": "3030",
+    "name": "myRESTServerCore",
+    "host": "localhost",
+    "logLevel": "info"
+  }
+}

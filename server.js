@@ -1,36 +1,27 @@
-"use strict";
+const Hapi = require("hapi");
+const config = require("config");
 
-const hapi = require("hapi");
-
-const server = hapi.Server({
-  port: 3000,
-  host: "localhost"
+const server = new Hapi.Server({
+  host: config.get("app.host"),
+  port: config.get("app.port")
 });
 
-server.route({
-  method: "GET",
-  path: "/",
-  handler: (request, h) => {
-    return "Hello, world!";
-  }
-});
+const routes = require("./routes");
 
-server.route({
-  method: "GET",
-  path: "/{name}",
-  handler: (request, h) => {
-    return "Hello, " + encodeURIComponent(request.params.name) + "!";
-  }
-});
+// attach routes here
+server.route(routes);
 
-const init = async () => {
-  await server.start();
-  console.log(`Server running at: ${server.info.uri}`);
-};
+// register plugins
+// const registerPlugins = async () => {
+//   try {
+//     await server.register(plugins);
+//   } catch (error) {
+//     logger.error(error, "Failed to register hapi plugins");
+//     throw error;
+//   }
+// };
 
-process.on("unhandledRejection", err => {
-  console.log(err);
-  process.exit(1);
-});
+// registerPlugins();
 
-init();
+// export modules
+module.exports = server;
