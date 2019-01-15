@@ -1,8 +1,14 @@
 "use strict";
 const config = require("config");
-const server = require("./server");
-
+const Hapi = require("hapi");
+const plugins = require("./plugins");
 const logger = require("./server/utils/logger");
+const routes = require("./routes");
+
+const server = new Hapi.Server({
+  host: config.get("app.host"),
+  port: config.get("app.port")
+});
 
 const gracefulStopServer = function() {
   // Wait 10 secs for existing connection to close and then exit.
@@ -38,6 +44,8 @@ process.on("SIGTERM", gracefulStopServer);
 const startServer = async function() {
   try {
     // add things here before the app starts, like database connection check etc
+    await server.register(plugins);
+    server.route(routes);
     await server.start();
     logger.info(
       `server started at port: ${config.get(
